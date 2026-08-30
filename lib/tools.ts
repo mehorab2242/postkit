@@ -1,3 +1,5 @@
+import { content } from "./content";
+
 /**
  * THE REGISTRY.
  *
@@ -35,7 +37,7 @@ export type Tool = {
 export const SITE_URL = "https://postkit.com";
 export const SITE_NAME = "Postkit";
 
-export const tools: Tool[] = [
+const entries: Omit<Tool, "body" | "faq">[] = [
   {
     slug: "engagement-rate-calculator",
     name: "Engagement Rate Calculator",
@@ -51,7 +53,6 @@ export const tools: Tool[] = [
     ],
     intro:
       "Enter your followers and your average likes and comments to get your engagement rate, plus a benchmark for accounts your size.",
-    body: [],
     howTo: [
       {
         step: "Enter your follower count",
@@ -74,7 +75,6 @@ export const tools: Tool[] = [
           "One tap copies a pitch-ready line you can paste straight into a brand email.",
       },
     ],
-    faq: [],
     published: "2026-08-30",
   },
   {
@@ -92,7 +92,6 @@ export const tools: Tool[] = [
     ],
     intro:
       "Slice one wide photo into seamless carousel panels. Everything runs in your browser — your image never leaves your device.",
-    body: [],
     howTo: [
       {
         step: "Add your image",
@@ -120,7 +119,6 @@ export const tools: Tool[] = [
           "You get a zip of numbered files. Upload them in order — 01 first.",
       },
     ],
-    faq: [],
     published: "2026-08-30",
   },
   {
@@ -138,7 +136,6 @@ export const tools: Tool[] = [
     ],
     intro:
       "Drop in up to 18 photos, drag them into the order you want, and see the grid the way visitors will.",
-    body: [],
     howTo: [
       {
         step: "Add your photos",
@@ -160,7 +157,6 @@ export const tools: Tool[] = [
           "Your layout is saved in this browser, so closing the tab does not lose it.",
       },
     ],
-    faq: [],
     published: "2026-08-30",
   },
   {
@@ -178,7 +174,6 @@ export const tools: Tool[] = [
     ],
     intro:
       "Type once and get dozens of styled versions for your bio, captions and comments. Tap a row to copy it.",
-    body: [],
     howTo: [
       {
         step: "Type or paste your text",
@@ -194,7 +189,6 @@ export const tools: Tool[] = [
         detail: "One tap copies that row. Paste it wherever you need it.",
       },
     ],
-    faq: [],
     published: "2026-08-30",
   },
   {
@@ -212,7 +206,6 @@ export const tools: Tool[] = [
     ],
     intro:
       "Drag and zoom until your face sits right inside the circle, then download a square image sized for every platform.",
-    body: [],
     howTo: [
       {
         step: "Add your photo",
@@ -229,10 +222,15 @@ export const tools: Tool[] = [
           "You get a 1080×1080 image. Platforms apply their own circular mask when you upload it.",
       },
     ],
-    faq: [],
     published: "2026-08-30",
   },
 ];
+
+export const tools: Tool[] = entries.map((entry) => ({
+  ...entry,
+  body: content[entry.slug]?.body ?? [],
+  faq: content[entry.slug]?.faq ?? [],
+}));
 
 export function getTool(slug: string): Tool | undefined {
   return tools.find((tool) => tool.slug === slug);
