@@ -24,9 +24,12 @@ function loadAdScript() {
 }
 
 /**
- * The box reserves its height in CSS whether or not an ad ever loads, so the
- * page cannot shift when one arrives. The reserved element renders identically
- * on the server and the client for the same reason.
+ * Renders nothing at all until NEXT_PUBLIC_ADSENSE_CLIENT is set — no box, no
+ * reserved space, no placeholder. There is no AdSense account yet, and an empty
+ * "Advertisement" frame is worse than no frame.
+ *
+ * Once the publisher ID is set the slot returns at build time, reserving its
+ * height in CSS before any ad exists so the page cannot shift when one arrives.
  */
 export function AdSlot({
   slotId,
@@ -44,6 +47,12 @@ export function AdSlot({
       loadAdScript();
     }
   }, [granted]);
+
+  // Hooks stay above this so their order never changes; CLIENT_ID is inlined
+  // at build time, so this is a constant for any given deploy.
+  if (!CLIENT_ID) {
+    return null;
+  }
 
   return (
     <div
