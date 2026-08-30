@@ -14,7 +14,9 @@ export function Header() {
           <CropMark className="text-mark" />
           Postkit
         </Link>
-        <nav aria-label="Tools">
+        {/* Hidden on phones: wrapping to a second line pushed the tool below
+            the fold at 375px, and the footer lists every tool anyway. */}
+        <nav aria-label="Tools" className="hidden sm:block">
           <ul className="flex flex-wrap gap-x-4 gap-y-1 text-small text-muted">
             {tools.slice(0, 3).map((tool) => (
               <li key={tool.slug}>
