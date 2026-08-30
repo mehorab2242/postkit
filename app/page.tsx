@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { AppLink as Link } from "@/components/ui/AppLink";
 
 import { SITE_URL, tools } from "@/lib/tools";
 

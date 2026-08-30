@@ -53,7 +53,7 @@ export function FileDrop({
     >
       <label
         htmlFor={id}
-        className="inline-flex min-h-11 cursor-pointer items-center bg-mark px-4 font-bold text-white"
+        className="inline-flex min-h-11 cursor-pointer items-center bg-mark-ink px-4 font-bold text-white"
       >
         {label}
       </label>

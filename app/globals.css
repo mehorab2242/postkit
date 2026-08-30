@@ -9,6 +9,10 @@
   --muted: #6e6e76;
   --rule: #e4e4e1;
   --mark: #ff0080;
+  /* Same magenta, darkened until it clears 4.5:1 — used wherever the accent
+     carries text, either as the text colour or behind white button labels.
+     --mark stays the graphic accent: rules, borders and registration marks. */
+  --mark-ink: #d6006b;
 
   /* Ad slots reserve their height before the ad exists (hard rule 7). */
   --ad-height-mobile: 280px;
@@ -21,6 +25,7 @@
   --color-muted: var(--muted);
   --color-rule: var(--rule);
   --color-mark: var(--mark);
+  --color-mark-ink: var(--mark-ink);
 
   --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-space-mono), ui-monospace, monospace;

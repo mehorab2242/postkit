@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import Link from "next/link";
+import { AppLink as Link } from "@/components/ui/AppLink";
 
 import {
   readConsent,
@@ -53,7 +53,7 @@ export function ConsentBanner() {
           <button
             type="button"
             onClick={() => writeConsent("granted")}
-            className="min-h-11 bg-mark px-4 text-small font-bold text-white"
+            className="min-h-11 bg-mark-ink px-4 text-small font-bold text-white"
           >
             Accept
           </button>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Space_Mono } from "next/font/google";
 
 import { Footer } from "@/components/shell/Footer";
+import { Analytics } from "@/components/shell/Analytics";
 import { ConsentBanner } from "@/components/shell/ConsentBanner";
 import { Header } from "@/components/shell/Header";
 import { SITE_URL } from "@/lib/tools";
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main className="flex-1">{children}</main>
         <Footer />
         <ConsentBanner />
+        <Analytics />
       </body>
     </html>
   );

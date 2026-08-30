@@ -64,7 +64,7 @@ export default function FancyTextGenerator() {
         <button
           type="button"
           onClick={() => setShowAll(true)}
-          className="mt-4 inline-flex min-h-11 items-center font-bold text-mark"
+          className="mt-4 inline-flex min-h-11 items-center font-bold text-mark-ink"
         >
           Show all {styles.length} styles
         </button>

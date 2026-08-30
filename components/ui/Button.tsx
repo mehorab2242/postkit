@@ -14,7 +14,7 @@ export function Button({
     "inline-flex min-h-11 items-center justify-center gap-2 px-4 text-body font-bold disabled:opacity-40 disabled:cursor-not-allowed";
   const styles =
     variant === "primary"
-      ? "bg-mark text-white hover:opacity-90"
+      ? "bg-mark-ink text-white hover:opacity-90"
       : "border border-rule text-ink hover:border-ink";
 
   return <button className={`${base} ${styles} ${className}`} {...props} />;

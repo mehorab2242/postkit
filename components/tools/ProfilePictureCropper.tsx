@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { FileDrop } from "@/components/ui/FileDrop";
+import { trackCompletion } from "@/lib/analytics";
 import { canvasToBlob, downloadBlob } from "@/lib/download";
 import { ImageLoadError, loadImage } from "@/lib/loadImage";
 
@@ -215,6 +216,8 @@ export default function ProfilePictureCropper() {
       const blob = await canvasToBlob(canvas, "image/jpeg", 0.92);
 
       downloadBlob(blob, "profile-picture.jpg");
+
+      trackCompletion("profile-picture-cropper");
     } catch (cause) {
       setError(
         cause instanceof Error

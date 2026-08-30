@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Postkit
 
-## Getting Started
+Free browser-based tools for people who post. Every tool runs client-side —
+no server, no uploads, no accounts.
 
-First, run the development server:
+## Running it
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Build the static site:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Output lands in `out/`. There is no server component to deploy — it is HTML,
+CSS, JS and images.
 
-## Learn More
+## Tests
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+node --test lib/*.test.ts
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Adding a tool
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Two files, and nothing else:
 
-## Deploy on Vercel
+1. An entry in `lib/tools.ts`, plus its copy in `lib/content.ts`.
+2. A component in `components/tools/`, registered in
+   `components/tools/index.ts` along with its reserved height.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The route, sitemap entry, OG image, homepage card, footer link, related links
+and JSON-LD all follow from the registry. If adding a tool ever takes more
+than this, the abstraction has broken — see `rules/postkit-architecture.md`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploying to Cloudflare Pages
+
+| Setting | Value |
+| --- | --- |
+| Build command | `npm run build` |
+| Output directory | `out` |
+| Node version | 20 or newer |
+
+`public/_headers` is copied into the output and sets the content type for the
+generated OG images, which are emitted without a file extension.
+
+## Environment variables
+
+Both are optional. With neither set, no third-party script is ever requested.
+
+| Variable | Effect |
+| --- | --- |
+| `NEXT_PUBLIC_ADSENSE_CLIENT` | AdSense publisher ID. Ad units render only when this is set *and* the visitor has accepted cookies. |
+| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Site domain for Plausible. Analytics load only after consent. |
+
+## Before launch
+
+Steps that need an account, so they cannot be done from here:
+
+- [ ] Confirm `postkit.com` is available and not colliding with an existing product
+- [ ] Point `CONTACT_EMAIL` in `lib/tools.ts` at a real inbox
+- [ ] Submit `sitemap.xml` to Google Search Console and Bing Webmaster Tools
+- [ ] Apply to AdSense, then set `NEXT_PUBLIC_ADSENSE_CLIENT` and pass real
+      slot IDs to `<AdSlot />`
+- [ ] Set up Plausible and set `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`
+- [ ] Test on a real iPhone and a real Android, including a 48MP photo
+- [ ] Claim the social handles

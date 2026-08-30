@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { AppLink as Link } from "@/components/ui/AppLink";
 
 import { CropMark } from "@/components/ui/CropMark";
 import { tools } from "@/lib/tools";

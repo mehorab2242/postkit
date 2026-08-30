@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { FileDrop } from "@/components/ui/FileDrop";
+import { trackCompletion } from "@/lib/analytics";
 import { canvasToBlob, downloadZip, type ZipFile } from "@/lib/download";
 import { ImageLoadError, loadImage } from "@/lib/loadImage";
 
@@ -272,6 +273,12 @@ export default function CarouselSplitter() {
       }
 
       await downloadZip(files, `carousel-${panels}-panels.zip`);
+
+      trackCompletion("carousel-splitter", {
+        panels: String(panels),
+        ratio,
+        fit,
+      });
     } catch (cause) {
       setError(
         cause instanceof Error
@@ -317,7 +324,7 @@ export default function CarouselSplitter() {
                   aria-pressed={panels === count}
                   className={`min-h-11 min-w-11 border font-mono ${
                     panels === count
-                      ? "border-mark text-mark"
+                      ? "border-mark text-mark-ink"
                       : "border-rule text-muted"
                   }`}
                 >
@@ -338,7 +345,7 @@ export default function CarouselSplitter() {
                   aria-pressed={ratio === option}
                   className={`min-h-11 border px-4 ${
                     ratio === option
-                      ? "border-mark text-mark"
+                      ? "border-mark text-mark-ink"
                       : "border-rule text-muted"
                   }`}
                 >
@@ -361,7 +368,7 @@ export default function CarouselSplitter() {
                   aria-pressed={fit === option}
                   className={`min-h-11 border px-4 ${
                     fit === option
-                      ? "border-mark text-mark"
+                      ? "border-mark text-mark-ink"
                       : "border-rule text-muted"
                   }`}
                 >
@@ -377,7 +384,7 @@ export default function CarouselSplitter() {
                     aria-pressed={padColour === colour.value}
                     className={`min-h-11 border px-3 text-small ${
                       padColour === colour.value
-                        ? "border-mark text-mark"
+                        ? "border-mark text-mark-ink"
                         : "border-rule text-muted"
                     }`}
                   >
@@ -388,7 +395,7 @@ export default function CarouselSplitter() {
           </fieldset>
 
           {tooSmall && (
-            <p className="text-small text-mark">
+            <p className="text-small text-mark-ink">
               This image is small for {panels} panels — each one will be
               upscaled. Try fewer panels, or a wider image.
             </p>

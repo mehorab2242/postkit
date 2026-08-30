@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { AppLink as Link } from "@/components/ui/AppLink";
 
 import { tools } from "@/lib/tools";
 
@@ -22,7 +22,7 @@ export function Footer() {
               <li key={tool.slug}>
                 <Link
                   href={`/${tool.slug}/`}
-                  className="inline-flex min-h-11 items-center text-body hover:text-mark"
+                  className="inline-flex min-h-11 items-center text-body hover:text-mark-ink"
                 >
                   {tool.name}
                 </Link>
@@ -40,7 +40,7 @@ export function Footer() {
               <li key={page.href}>
                 <Link
                   href={page.href}
-                  className="inline-flex min-h-11 items-center text-body hover:text-mark"
+                  className="inline-flex min-h-11 items-center text-body hover:text-mark-ink"
                 >
                   {page.label}
                 </Link>

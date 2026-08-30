@@ -71,7 +71,7 @@ export default async function ToolPage({ params }: PageProps<"/[slug]">) {
         <ol className="mt-4 space-y-4">
           {tool.howTo.map((item, index) => (
             <li key={item.step} className="flex gap-3">
-              <span className="font-mono text-small text-mark">
+              <span className="font-mono text-small text-mark-ink">
                 {String(index + 1).padStart(2, "0")}
               </span>
               <span>

@@ -111,7 +111,7 @@ export default function EngagementRateCalculator() {
       <div aria-live="polite" className="mt-6">
         {result ? (
           <div className="border border-rule p-5">
-            <p className="font-mono text-display font-bold text-mark">
+            <p className="font-mono text-display font-bold text-mark-ink">
               {result.rate.toFixed(1)}%
             </p>
             <p className="mt-2">
