@@ -1,7 +1,7 @@
 "use client";
 
 import { CropFrame } from "@/components/ui/CropMark";
-import { toolComponents } from "@/components/tools";
+import { toolComponents, toolMinHeights } from "@/components/tools";
 
 /**
  * The one client boundary on a tool page. Everything around it — heading,
@@ -17,7 +17,9 @@ export function ToolIsland({ slug }: { slug: string }) {
   return (
     <div className="my-6">
       <CropFrame>
-        <Tool />
+        <div style={{ minHeight: toolMinHeights[slug] }}>
+          <Tool />
+        </div>
       </CropFrame>
     </div>
   );

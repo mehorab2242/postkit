@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 
-import { CONSENT_EVENT, readConsent } from "@/lib/consent";
+import { readConsent, serverConsent, subscribeConsent } from "@/lib/consent";
 
 const CLIENT_ID = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
 
@@ -35,24 +35,15 @@ export function AdSlot({
   slotId?: string;
   label?: string;
 }) {
-  const [granted, setGranted] = useState(false);
+  const granted =
+    useSyncExternalStore(subscribeConsent, readConsent, serverConsent) ===
+    "granted";
 
   useEffect(() => {
-    const sync = () => {
-      const consent = readConsent();
-
-      setGranted(consent === "granted");
-
-      if (consent === "granted") {
-        loadAdScript();
-      }
-    };
-
-    sync();
-    window.addEventListener(CONSENT_EVENT, sync);
-
-    return () => window.removeEventListener(CONSENT_EVENT, sync);
-  }, []);
+    if (granted) {
+      loadAdScript();
+    }
+  }, [granted]);
 
   return (
     <div

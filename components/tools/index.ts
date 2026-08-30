@@ -27,3 +27,20 @@ export const toolComponents: Record<string, ComponentType> = {
     ssr: false,
   }),
 };
+
+/**
+ * Space each tool occupies before it hydrates.
+ *
+ * Because tools render with `ssr: false`, they contribute no height to the
+ * server HTML, and everything below them jumps down when they appear. These
+ * are the empty-state heights, reserved up front so that shift never happens.
+ * They live here rather than in the registry: a tool's own layout is the
+ * component's business, not page data.
+ */
+export const toolMinHeights: Record<string, number> = {
+  "engagement-rate-calculator": 360,
+  "carousel-splitter": 240,
+  "instagram-grid-planner": 240,
+  "fancy-text-generator": 470,
+  "profile-picture-cropper": 240,
+};

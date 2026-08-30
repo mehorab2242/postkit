@@ -36,6 +36,8 @@ export type Tool = {
 
 export const SITE_URL = "https://postkit.com";
 export const SITE_NAME = "Postkit";
+/** TODO: point this at a real inbox before launch. */
+export const CONTACT_EMAIL = "hello@postkit.com";
 
 const entries: Omit<Tool, "body" | "faq">[] = [
   {

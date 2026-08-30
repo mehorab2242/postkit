@@ -1,9 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
 
-import { CONSENT_EVENT, readConsent, writeConsent } from "@/lib/consent";
+import {
+  readConsent,
+  serverConsent,
+  subscribeConsent,
+  writeConsent,
+} from "@/lib/consent";
 
 /**
  * Nothing that tracks anyone loads until this is answered. The banner is
@@ -11,19 +16,15 @@ import { CONSENT_EVENT, readConsent, writeConsent } from "@/lib/consent";
  * that is remembered, not a nag that returns on the next page.
  */
 export function ConsentBanner() {
-  const [decided, setDecided] = useState(true);
+  const consent = useSyncExternalStore(
+    subscribeConsent,
+    readConsent,
+    serverConsent,
+  );
 
-  useEffect(() => {
-    setDecided(readConsent() !== null);
-
-    const onChange = () => setDecided(true);
-
-    window.addEventListener(CONSENT_EVENT, onChange);
-
-    return () => window.removeEventListener(CONSENT_EVENT, onChange);
-  }, []);
-
-  if (decided) {
+  /* "unknown" is the hydration snapshot, so server and client agree on
+     rendering nothing; the banner appears on the re-render that follows. */
+  if (consent !== null) {
     return null;
   }
 

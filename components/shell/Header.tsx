@@ -9,7 +9,7 @@ export function Header() {
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4">
         <Link
           href="/"
-          className="flex items-center gap-2 text-[1.125rem] font-bold tracking-tight"
+          className="flex min-h-11 items-center gap-2 text-[1.125rem] font-bold tracking-tight"
         >
           <CropMark className="text-mark" />
           Postkit
